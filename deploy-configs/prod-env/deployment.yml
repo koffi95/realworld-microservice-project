@@ -15,6 +15,7 @@ spec:
         app: reddit-clone
     spec:
       containers:
-      - name: koffi95/reddit:latest
+      - name: reddit-clone-container 
+        image: koffi95/reddit:latest
         ports:
         - containerPort: 3000
