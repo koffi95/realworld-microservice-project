@@ -60,7 +60,7 @@ pipeline{
                    withDockerRegistry(credentialsId: 'DockerHub-Credential', toolName: 'Docker'){
                        sh "docker build -t reddit ."
                        sh "docker tag reddit koffi95/reddit:latest "
-                       sh "docker push koffi95/reddit:latest "
+                       sh "docker push koffi95/reddit:latest"
                     }
                 }
             }
@@ -84,7 +84,7 @@ pipeline{
         stage('ZAP Dynamic Testing | DAST') {
             steps {
                 sshagent(['OWASP-Zap-Credential']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.224.5.255 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://18.222.153.134:30000/" || true'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.147.56.16 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://3.21.93.106:30000/" || true'
                                                         //JENKINS_PUBLIC_IP                                                      //EKS_WORKER_NODE_IP_ADDRESS:3000
                 }
             }
