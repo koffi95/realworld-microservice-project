@@ -84,7 +84,7 @@ pipeline{
         stage('ZAP Dynamic Testing | DAST') {
             steps {
                 sshagent(['OWASP-Zap-Credential']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.147.56.16 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://3.21.93.106:30000/" || true'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@192.168.206.38 "docker run -t owasp/zap2docker-stable zap-baseline.py -t http://18.118.102.225:30000/" || true'
                                                         //JENKINS_PUBLIC_IP                                                      //EKS_WORKER_NODE_IP_ADDRESS:3000
                 }
             }
@@ -106,12 +106,12 @@ pipeline{
             }
         }
     }
-    post {
-    always {
-        echo 'Slack Notifications.'
-        slackSend channel: '#ka-devsecops-cicd-alerts', //update and provide your channel name
-        color: COLOR_MAP[currentBuild.currentResult],
-        message: "*${currentBuild.currentResult}:* Job Name '${env.JOB_NAME}' build ${env.BUILD_NUMBER} \n Build Timestamp: ${env.BUILD_TIMESTAMP} \n Project Workspace: ${env.WORKSPACE} \n More info at: ${env.BUILD_URL}"
-    }
-  }
+//     post {
+//     always {
+//         echo 'Slack Notifications.'
+//         slackSend channel: '#ka-devsecops-cicd-alerts', //update and provide your channel name
+//         color: COLOR_MAP[currentBuild.currentResult],
+//         message: "*${currentBuild.currentResult}:* Job Name '${env.JOB_NAME}' build ${env.BUILD_NUMBER} \n Build Timestamp: ${env.BUILD_TIMESTAMP} \n Project Workspace: ${env.WORKSPACE} \n More info at: ${env.BUILD_URL}"
+//     }
+//   }
 }
